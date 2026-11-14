@@ -66,6 +66,9 @@ std::string TextProcessor::replace_words(const std::string& word,
     if (!std::all_of(target.begin(), target.end(), is_word)) {
         throw std::invalid_argument("Expected one word");
     }
+    if (word == replacement) {
+        return text_;
+    }
     const auto& substitute = replacement;
     std::string result;
     std::size_t cursor = 0;
@@ -81,6 +84,7 @@ std::string TextProcessor::replace_words(const std::string& word,
     text_ = std::move(result);
     return text_;
 }
+
 std::string TextProcessor::find_phrase(const std::string& phrase) const {
     const auto target = normalized(phrase);
     if (target.empty()) {
